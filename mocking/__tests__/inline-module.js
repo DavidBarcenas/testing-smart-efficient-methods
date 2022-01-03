@@ -1,11 +1,7 @@
 const gameWar = require('../gameWar');
 const utils = require('../utils');
 
-jest.mock('../utils', () => {
-  return {
-    getWinner: jest.fn((p1, p2) => p1)
-  }
-})
+jest.mock('../utils')
 
 test('return winner', () => {
   const winner = gameWar('Davee', 'Josh')
