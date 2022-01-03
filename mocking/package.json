@@ -1,0 +1,14 @@
+{
+  "name": "mocking",
+  "version": "1.0.0",
+  "description": "",
+  "main": "gameWar.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "David Barcenas",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^27.4.5"
+  }
+}
