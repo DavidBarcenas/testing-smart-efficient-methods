@@ -1,10 +1,9 @@
-const { expect } = require('@jest/globals');
 const gameWar = require('../gameWar');
 const utils = require('../utils');
 
 test('return winner', () => {
-  const originalGetWinner = utils.getWinner
-  utils.getWinner = jest.fn((p1, p2) => p1)
+  jest.spyOn(utils, 'getWinner')
+  utils.getWinner.mockImplementation((p1, p2) => p1)
 
   const winner = gameWar('Davee', 'Josh')
   expect(winner).toBe('Davee')
@@ -17,5 +16,5 @@ test('return winner', () => {
     ['Davee', 'Josh'],
   ])
 
-  utils.getWinner = originalGetWinner
+  utils.getWinner.mockRestore()
 })
