@@ -1,5 +1,7 @@
+export 
+
 function add (a: number, b:number) {
-  return a + b;
+         return a + b;
 }
 
 interface User {
@@ -11,8 +13,8 @@ interface User {
 }
 
 
-function getFullName (user: User): string {
-  const {first, middle, last} = user.name
+function      getFullName (user: User): string {
+  const {         first, middle, last} = user.name
   return [first, middle, last].filter(Boolean).join('')
 }
 
