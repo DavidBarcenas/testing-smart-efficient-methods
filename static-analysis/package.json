@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "babel src --output-dir dist"
+    "build": "babel src --out-dir dist",
+    "lint": "eslint --ignore-path ../.gitignore .",
+    "format": "prettier --ignore-path ../.gitignore --write \"**/*.+(js|json)\""
   },
   "keywords": [],
   "author": "David Barcenas",
@@ -13,6 +15,7 @@
     "@babel/cli": "^7.16.7",
     "@babel/core": "^7.16.7",
     "@babel/preset-env": "^7.16.7",
-    "eslint": "^8.6.0"
+    "eslint": "^8.6.0",
+    "prettier": "^2.5.1"
   }
 }
