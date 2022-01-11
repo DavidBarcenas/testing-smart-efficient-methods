@@ -1,10 +1,8 @@
-import ReactDOM from 'react-dom';
+import { render, screen } from '@testing-library/react'
 import FavoriteNumber from '../components/favorite-number'
 
 test('renders a number input with a label "Favorite number"', () => {
-  const div = document.createElement('div')
-  ReactDOM.render(<FavoriteNumber />, div)
-
-  expect(div.querySelector('input')).toHaveAttribute('type', 'number')
-  expect(div.querySelector('label').textContent).toBe('Favorite number')
+  render(<FavoriteNumber />)
+  const input = screen.getByLabelText(/favorite number/i)
+  expect(input).toHaveAttribute('type', 'number')
 })

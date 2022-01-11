@@ -15,7 +15,7 @@ export default function FavoriteNumber(min = 1, max = 10) {
     <div>
       <label htmlFor="favorite_number">Favorite number</label>
       <input
-        id="favorite-number"
+        id="favorite_number"
         type="number"
         value={number}
         onChange={handleChange}
