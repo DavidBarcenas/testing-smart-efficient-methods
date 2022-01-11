@@ -10,10 +10,11 @@ test('renders a number input with a label "Favorite number"', () => {
 
 test('entering an invalid value shows an error message', () => {
   const { rerender } = render(<FavoriteNumber />)
+
   const input = screen.getByLabelText(/favorite number/i)
   user.type(input, '10')
   expect(screen.getByRole('alert')).toHaveTextContent(/the number is invalid/i)
 
   rerender(<FavoriteNumber max={10} />)
-  expect(screen.queryByRole('alert')).not.toBeInTheDocument()
+  expect(screen.queryByRole('alert')).toBeNull()
 })
