@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-export default function FavoriteNumber(min = 1, max = 10) {
+export default function FavoriteNumber({ min = 1, max = 9 }) {
   const [number, setNumber] = useState(0)
   const [numberEntered, setNumberEntered] = useState(false)
 
