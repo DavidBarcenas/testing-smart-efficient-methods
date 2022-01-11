@@ -1,4 +1,4 @@
-function client(endpoint, { data, token, headers: customHeaders, ...customConfig }) {
+function client(endpoint, { data, token, headers: customHeaders, ...customConfig } = {}) {
   const config = {
     method: data ? 'POST' : 'GET',
     body: data ? JSON.stringify(data) : undefined,
@@ -21,7 +21,7 @@ function client(endpoint, { data, token, headers: customHeaders, ...customConfig
 }
 
 const savePost = postData => client(`post/${postData.id}`, { data: postData })
-const loadGreeting = subject => client('greeting', { data: subject })
+const loadGreeting = subject => client('greeting', { data: { subject } })
 const reportError = data => client('error', { data })
 const submitForm = (data) => client(`form`, { data })
 
