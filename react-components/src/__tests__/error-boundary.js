@@ -1,4 +1,5 @@
-import { render } from "@testing-library/react"
+import { render, screen } from "@testing-library/react"
+import user from '@testing-library/user-event'
 import { ErrorBoundary } from '../components/error-boundary'
 import { reportError as mockReportError } from '../http-request/api'
 
@@ -36,5 +37,26 @@ test('calls reportError and renders that there was a problem', () => {
 
   expect(mockReportError).toHaveBeenCalledWith(error, info)
   expect(mockReportError).toHaveBeenCalledTimes(1)
+
   expect(console.error).toHaveBeenCalledTimes(2)
+
+  expect(screen.getByRole('alert').textContent).toMatchInlineSnapshot(
+    `"There was a problem."`
+  )
+
+  console.error.mockClear()
+  mockReportError.mockClear()
+
+  rerender(
+    <ErrorBoundary>
+      <MyCustomError />
+    </ErrorBoundary>
+  )
+
+  user.click(screen.getByText(/try again/i))
+
+  expect(mockReportError).not.toHaveBeenCalled()
+  expect(console.error).not.toHaveBeenCalled()
+  expect(screen.queryByRole('alert')).not.toBeInTheDocument()
+  expect(screen.queryByText(/try again/i)).not.toBeInTheDocument()
 })
