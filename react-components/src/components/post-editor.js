@@ -1,5 +1,14 @@
+import { useState } from "react"
+
 export default function PostEditor() {
-  return <form>
+  const [isSaving, setIsSaving] = useState(false)
+
+  function handleSubmit(e) {
+    e.preventDefault()
+    setIsSaving(true)
+  }
+
+  return <form onSubmit={handleSubmit}>
     <label htmlFor="title">Title</label>
     <input type="text" id="title" />
 
@@ -9,6 +18,6 @@ export default function PostEditor() {
     <label htmlFor="tags-input">Tags</label>
     <input type="text" id="tags-input" />
 
-    <button type="submit">Submit</button>
+    <button type="submit" disabled={isSaving}>Submit</button>
   </form>
 }
