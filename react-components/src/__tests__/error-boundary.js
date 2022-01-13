@@ -21,16 +21,11 @@ test('calls reportError and renders that there was a problem', () => {
   mockReportError.mockResolvedValueOnce({ succeeded: true })
 
   const { rerender } = render(
-    <ErrorBoundary>
-      <MyCustomError />
-    </ErrorBoundary>
+    <MyCustomError />,
+    { wrapper: ErrorBoundary }
   )
 
-  rerender(
-    <ErrorBoundary>
-      <MyCustomError shouldThrow={true} />
-    </ErrorBoundary>
-  )
+  rerender(<MyCustomError shouldThrow={true} />)
 
   const error = expect.any(Error)
   const info = { componentStack: expect.stringContaining('MyCustomError') }
@@ -47,11 +42,7 @@ test('calls reportError and renders that there was a problem', () => {
   console.error.mockClear()
   mockReportError.mockClear()
 
-  rerender(
-    <ErrorBoundary>
-      <MyCustomError />
-    </ErrorBoundary>
-  )
+  rerender(<MyCustomError />)
 
   user.click(screen.getByText(/try again/i))
 
