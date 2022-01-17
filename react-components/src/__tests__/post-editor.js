@@ -4,18 +4,19 @@ import { BrowserRouter } from 'react-router-dom'
 import { savePost as mockSavePost } from '../http-request/api'
 import PostEditor from '../components/post-editor'
 
+const fakeUser = { id: 'user-1' }
+const fakePost = {
+  title: 'Test title',
+  content: 'Test content',
+  tags: ['tag1', 'tag2']
+}
+
 jest.mock('../http-request/api')
 
 afterAll(() => jest.clearAllMocks())
 
 test('renders a form with title, content, tags, and a submit', async () => {
   mockSavePost.mockResolvedValueOnce()
-  const fakeUser = { id: 'user-1' }
-  const fakePost = {
-    title: 'Test title',
-    content: 'Test content',
-    tags: ['tag1', 'tag2']
-  }
   const preDate = new Date().getTime()
 
   render(<PostEditor user={fakeUser} />, { wrapper: BrowserRouter })
@@ -33,4 +34,17 @@ test('renders a form with title, content, tags, and a submit', async () => {
 
   expect(submitButton).toBeDisabled()
   expect(mockSavePost).toHaveBeenCalledWith({ ...fakePost, date: expect.any(String), authorId: fakeUser.id })
+})
+
+test('renders an error message from the server', async () => {
+  const testError = 'test error'
+  mockSavePost.mockRejectedValueOnce({ data: { error: testError } })
+  render(<PostEditor user={fakeUser} />, { wrapper: BrowserRouter })
+
+  const submitButton = screen.getByText(/submit/i)
+  user.click(submitButton)
+
+  const postError = await screen.findByRole('alert')
+  expect(postError).toHaveTextContent(testError)
+  expect(submitButton).not.toBeDisabled()
 })

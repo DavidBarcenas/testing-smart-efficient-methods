@@ -3,6 +3,7 @@ import { savePost } from '../http-request/api'
 
 export default function PostEditor({ user }) {
   const [isSaving, setIsSaving] = useState(false)
+  const [error, setError] = useState(null)
 
   function handleSubmit(e) {
     e.preventDefault()
@@ -18,6 +19,11 @@ export default function PostEditor({ user }) {
 
     setIsSaving(true)
     savePost(newPost)
+      .then()
+      .catch(error => {
+        setError(error.data.error)
+        setIsSaving(false)
+      })
   }
 
   return (
@@ -32,6 +38,8 @@ export default function PostEditor({ user }) {
       <input type="text" id="tags-input" name="tags" />
 
       <button type="submit" disabled={isSaving}>Submit</button>
+
+      {error ? <div role="alert">{error}</div> : null}
     </form>
   )
 }
