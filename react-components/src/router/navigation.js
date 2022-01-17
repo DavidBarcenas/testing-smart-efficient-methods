@@ -29,7 +29,7 @@ export default function Navigation() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="about" element={<About />} />
-        <Route element={<NoMatch />} />
+        <Route path="*" element={<NoMatch />} />
       </Routes>
     </div>
   )
