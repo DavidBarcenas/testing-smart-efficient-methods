@@ -10,7 +10,9 @@ function client(endpoint, { data, token, headers: customHeaders, ...customConfig
     ...customConfig
   }
 
+
   return window.fetch(`/${endpoint}`, config).then(async (response) => {
+    console.log(response)
     const responseData = await response.json()
     if (response.ok) {
       return responseData

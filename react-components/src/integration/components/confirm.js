@@ -8,8 +8,8 @@ export default function Confirm({ history }) {
   function handleConfirmClick() {
     submitForm(form).then(
       () => {
-        resetForm()
-        history?.push('/success')
+        // resetForm()
+        history.push('/success')
       },
       (error) => {
         history.push('/error', { state: { error } })
