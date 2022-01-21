@@ -1,18 +1,18 @@
 import { useForm } from "../hooks/use-form"
 import { submitForm } from '../../http-request/api'
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
-export default function Confirm({ history }) {
-  const { form, resetForm } = useForm()
+export default function Confirm() {
+  const { form } = useForm()
+  let navigate = useNavigate();
 
   function handleConfirmClick() {
     submitForm(form).then(
       () => {
-        // resetForm()
-        history.push('/success')
+        navigate('/success')
       },
       (error) => {
-        history.push('/error', { state: { error } })
+        navigate('/error')
       },
     )
   }

@@ -11,15 +11,22 @@ test('can fill out a form across multiple pages', async () => {
   const testData = { food: 'test food', drink: 'test drink' }
   render(<IntegrationApp />, { wrapper: BrowserRouter })
 
-  user.click(screen.getByText(/fill.*form/i))
+  user.click(await screen.findByText(/fill.*form/i))
 
-  user.type(screen.getByLabelText(/food/i), testData.food)
-  user.click(screen.getByText(/next/i))
+  user.type(await screen.findByLabelText(/food/i), testData.food)
+  user.click(await screen.findByText(/next/i))
 
-  user.type(screen.getByLabelText(/drink/i), testData.drink)
-  user.click(screen.getByText(/review/i))
+  user.type(await screen.findByLabelText(/drink/i), testData.drink)
+  user.click(await screen.findByText(/review/i))
 
-  await user.click(screen.getByText(/confirm/i, { selector: 'button' }))
-  // await screen.findByText(/home/i)
-  // screen.debug()
+  expect(await screen.findByLabelText(/food/i)).toHaveTextContent(testData.food)
+  expect(await screen.findByLabelText(/drink/i)).toHaveTextContent(testData.drink)
+
+  user.click(await screen.findByText(/confirm/i, { selector: 'button' }))
+
+  expect(mockSubmitForm).toHaveBeenCalledWith(testData)
+  expect(mockSubmitForm).toHaveBeenCalledTimes(1)
+
+  user.click(await screen.findByText(/home/i))
+  expect(await screen.findByText(/welcome home/i)).toBeInTheDocument()
 })
